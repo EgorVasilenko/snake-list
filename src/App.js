@@ -5,7 +5,7 @@ function App() {
   const [size, setSize] = useState(8);
   const [count, setCount] = useState(10);
   return (<>
-    <label>Size per row:</label><input value={size} onChange={(e) => setSize(+e.target.value)} type="number" step="1" />
+    <label>Size per row:</label><input value={size} onChange={(e) => setSize(+e.target.value)} type="number" step="1" min={2} max="10" />
     <br/>
     <br/>
     <br/>
