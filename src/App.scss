@@ -1,0 +1,74 @@
+@use "sass:math";
+@mixin snake($size, $itemSize) {
+    grid-template-columns: repeat($size, $itemSize);
+  .item {
+    @for $i from 0 through 100 {
+      &:nth-child(#{$i + 1}) {
+        @if math.floor(calc($i / $size)) % 2 == 1 {
+          color: red;
+          grid-column-start: #{$size - $i % $size};
+          grid-row-start: math.floor(calc($i / $size)) + 1;
+        } @else {
+          grid-row-start: math.floor(calc($i / $size)) + 1;
+          grid-column-start: #{$i % $size + 1};
+        }
+      }
+    }
+    &:nth-child(#{$size}n):not(:last-child):after {
+      content: '';
+      height: 45%;
+      background: red;
+      width: 5px;
+      display: block;
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+}
+
+$iSize: 40px;
+
+#root {
+  margin: 30px;
+}
+label {
+  width: 100px;
+  display: inline-block;
+}
+.container {
+  margin: auto 0;
+  display: grid;
+  float: left;
+  gap: $iSize/3;
+  overflow: hidden;
+
+  @for $i from 1 to 20 {
+    &--#{$i} {
+      @include snake($i, $iSize);
+    }
+  }
+}
+.item {
+  border-radius: 50%;
+  height: $iSize;
+  font: 900 10px/#{$iSize - 2px} Arial;
+  box-sizing: border-box;
+  text-align: center;
+  border: 2px solid red;
+  position: relative;
+  box-sizing: border-box;
+  &:not(:last-child):before {
+    content: '';
+    height: 5px;
+    background: red;
+    width: 45%;
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    transform: translateY(-50%);
+  }
+}
+
